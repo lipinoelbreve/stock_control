@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-10">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="">Accounts</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Accounts List</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-md-2">
+        <a href="" class="btn btn-disabled">Add Account</a>
+    </div> 
+</div>
+
+<div class="display_table">
+    <table id="table1" class="table table-striped">
+        <thead>
+            <tr>
+                <th>PN</th>
+                <th>CATEGORY</th>
+                <th>NAME</th>
+                <th>AVAILABLE</th>
+                <th>IN USE</th>
+                <th>REPAIR</th>
+                <th>DISPOSED</th>
+                <th>TOTAL QTY</th>
+                <th></th>
+            </tr>
+        </thead>
+        {% for account in accounts %}
+        <tr>
+            <td>{{account.part_number}}</td>
+            <td>{{account.category}}</td>
+            <td>{{account.name}}</td>
+            <td>{{account.available_qty}}</td>
+            <td>{{account.in_use_qty}}</td>
+            <td>{{account.repair_qty}}</td>
+            <td>{{account.disposed_qty}}</td>
+            <td>{{account.total_qty}}</td>
+            <td><a class="btn btn-primary btn-sm" href="{% url 'data_loader:view_account' account.id %}">View</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#table1').DataTable();
+    });
+</script>
+
+{% endblock %}

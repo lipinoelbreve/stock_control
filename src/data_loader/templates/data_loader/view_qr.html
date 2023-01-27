@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<body>
+    <main>
+        <h1>
+            {{h1}}
+        </h1>
+        <h2>
+            {{h2}}
+        </h2>
+        <div class="input-group mb-3">
+            <div style="margin: auto">
+                <img src="data:image/png;base64,{{ img }}" alt="QR code">
+            </div>
+          </div>
+    </main>
+
+    <button id="print-button">Print QR</button>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script>
+        document.getElementById("print-button").addEventListener("click", function() {
+            html2canvas(document.querySelector("main"), { onrendered: function(canvas) {
+                var newWindow = window.open();
+                newWindow.document.body.appendChild(canvas);
+                newWindow.print();
+            }});
+        });
+    </script>
+</body>
+
+{% endblock %}

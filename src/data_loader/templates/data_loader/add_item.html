@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<form method='POST' action='' id="AddItem" data-accounts-url="{% url 'data_loader:ajax_load_accounts' %}">{% csrf_token %}
+    {{form|crispy}}
+    <input type="submit" value="Save"/>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_category").change(function () {
+        const url = $("#AddItem").attr("data-accounts-url");  // get the url of the `load_cities` view
+        const catId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'category': catId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_account").html(data);  // replace the contents of the city input with the data that came from the server
+            }
+        });
+
+    });
+</script>
+
+{% endblock %}
