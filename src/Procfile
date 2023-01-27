@@ -1,0 +1,2 @@
+web: gunicorn stock_control.wsgi
+release: ./release_tasks.sh
